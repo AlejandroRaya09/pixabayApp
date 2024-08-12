@@ -12,12 +12,12 @@ export class BuscarImagenComponent {
   private _imagenServices = inject(ImagenService);
 
 
-  buscarImageenes(){
+  buscarImagenes(){
     if(this.nombreImagen == ''){
       this._imagenServices.setError('Agrega una busqueda correcta')
       return;
     }
 
-    this._imagenServices.enviarTermnoBusqueda(this.nombreImagen);
+     this._imagenServices.enviarTerminoBusqueda(this.nombreImagen);
   }
 }

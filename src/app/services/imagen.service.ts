@@ -20,16 +20,16 @@ export class ImagenService {
   }
 
 
-  enviarTermnoBusqueda(termino:string){
+  enviarTerminoBusqueda(termino:string){
     this.terminoBusqueda$.next(termino);
   }
   getTermninoBusqueda():Observable<string>{
     return this.terminoBusqueda$.asObservable();
   }
   
-  getImagenes(terminoImagen: string):Observable<any>{
+  getImagenes(terminoImagen: string, imagenesPagina:number, paginaActual:number ):Observable<any>{
     const KEY = '45381725-9e83c91a825b8b3d4657fb90b'
-    const URL = `https://pixabay.com/api/?key=${KEY}&q=${terminoImagen}`
+    const URL = `https://pixabay.com/api/?key=${KEY}&q=${terminoImagen}&per_page=${imagenesPagina}&page=${paginaActual}`
     return this.http.get(URL)
   }
 
