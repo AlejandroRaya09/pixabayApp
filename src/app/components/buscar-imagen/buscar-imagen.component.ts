@@ -15,6 +15,9 @@ export class BuscarImagenComponent {
   buscarImageenes(){
     if(this.nombreImagen == ''){
       this._imagenServices.setError('Agrega una busqueda correcta')
+      return;
     }
+
+    this._imagenServices.enviarTermnoBusqueda(this.nombreImagen);
   }
 }

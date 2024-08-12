@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -6,17 +7,30 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ImagenService {
 
-  private $error = new Subject<string>();
+  private error$ = new Subject<string>();
+  private terminoBusqueda$ = new Subject<string>();
 
-
-  constructor() { }
+  private http = inject(HttpClient)
 
   setError(mensaje:string){
-    this.$error.next(mensaje)
+    this.error$.next(mensaje)
+  }
+  getError():Observable<string>{
+    return this.error$.asObservable();
   }
 
-  getError():Observable<string>{
-    return this.$error.asObservable();
+
+  enviarTermnoBusqueda(termino:string){
+    this.terminoBusqueda$.next(termino);
+  }
+  getTermninoBusqueda():Observable<string>{
+    return this.terminoBusqueda$.asObservable();
+  }
+  
+  getImagenes(terminoImagen: string):Observable<any>{
+    const KEY = '45381725-9e83c91a825b8b3d4657fb90b'
+    const URL = `https://pixabay.com/api/?key=${KEY}&q=${terminoImagen}`
+    return this.http.get(URL)
   }
 
 }
